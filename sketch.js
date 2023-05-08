@@ -8,7 +8,8 @@ let engine;
 let world;
 
 var ash,ashImg;
-var obstacle,obstacleFly
+var bgSound;
+var obstacle,obstacleFly;
 var gengarImg,pikachuImg,staraptorImg,hariyamaImg,diglettImg,dragonightImg;
 var back;
 
@@ -16,41 +17,47 @@ function preload() {
     back = loadImage("background.png");
     ashImg = loadImage("Ash.png");
 
+    bgSound = loadSound("Monkeys-Music.mp3");
+
     gengarImg = loadImage("gengar.png");
     staraptorImg = loadImage("staraptor.png");
     hariyamaImg = loadImage("hariyama.png");
     diglettImg = loadImage("diglett.png");
     dragonightImg = loadImage("dragonight.png");
     pikachuImg = loadImage("pikachu.png");
-}
-
-function setup() {
+  }
+  
+  function setup() {
     createCanvas(windowWidth, windowHeight);
 
+    bgSound.play();
+    bgSound.loop();
+    bgSound.setVolume(0.4);
+    
     engine = Engine.create();
     world = engine.world;
-
+    
     obstaclesGroup = new Group();
     obstaclesFlyGroup = new Group();
-
+    
     ash = createSprite(windowWidth - 1300,windowHeight - 150);
     ash.addImage(ashImg);
-}
-
-function draw() {
+  }
+  
+  function draw() {
     background(back);
     Engine.update(engine);
-
     
     spawnObstacles();
     spawnFlyObstacles();
     
     //if (obstacle.x < windowWidth / 2) {
-    //    obstacle.velocityX = 0
+      //    obstacle.velocityX = 0
     //}
-
+    
     drawSprites()
-}
+  }
+
 function spawnObstacles() {
     if(frameCount % 250 === 0) {
         obstacle = createSprite(windowWidth + 100,windowHeight - 170);
