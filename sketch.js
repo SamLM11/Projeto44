@@ -8,6 +8,7 @@ let engine;
 let world;
 
 var ash,ashImg;
+var ashPokeball,ashPokeballImg;
 var bgSound;
 var obstacle,obstacleFly;
 var gengarImg,pikachuImg,staraptorImg,hariyamaImg,diglettImg,dragonightImg;
@@ -16,7 +17,8 @@ var back;
 function preload() {
     back = loadImage("background.png");
     ashImg = loadImage("Ash.png");
-
+    ashPokeballImg = loadImage("Ash-pokebola.png");
+    
     bgSound = loadSound("Monkeys-Music.mp3");
 
     gengarImg = loadImage("gengar.png");
@@ -42,6 +44,11 @@ function preload() {
     
     ash = createSprite(windowWidth - 1300,windowHeight - 150);
     ash.addImage(ashImg);
+
+    ashPokeball = createSprite(windowWidth-1300,windowHeight - 150);
+    ashPokeball.addImage(ashPokeballImg);
+    ashPokeball.scale = 0.3
+    ashPokeball.visible = false;
   }
   
   function draw() {
@@ -53,11 +60,25 @@ function preload() {
     
     //if (obstacle.x < windowWidth / 2) {
       //    obstacle.velocityX = 0
-    //}
+      //}
+      
+      drawSprites()
+    }
     
-    drawSprites()
-  }
+    function keyPressed() {
+      if (keyCode === 32) {
+        ash.visible = false;
+        ashPokeball.visible = true;
+      }
+    }
 
+    function keyReleased() {
+      if (keyCode === 32) {
+        ash.visible = true;
+        ashPokeball.visible = false;
+      }
+    }
+    
 function spawnObstacles() {
     if(frameCount % 250 === 0) {
         obstacle = createSprite(windowWidth + 100,windowHeight - 170);
