@@ -9,7 +9,6 @@ let world;
 
 var ash, ashImg;
 var score = 0;
-//var seta;
 var ashPokeball, ashPokeballImg;
 var bgSound;
 var obstacle, obstacleFly;
@@ -46,8 +45,6 @@ function setup() {
 
   obstaclesGroup = new Group();
   obstaclesFlyGroup = new Group();
-
-  //seta = new Seta(windowWidth - 1400, windowHeight - 150, angle);
 
   ash = createSprite(windowWidth - 1300, windowHeight - 150);
   ash.addImage(ashImg);
