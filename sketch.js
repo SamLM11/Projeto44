@@ -78,15 +78,15 @@ function draw() {
   //    obstacle.velocityX = 0
   //}
 
-  if (pokebola.isTouching(obstacle)) {
-    obstacle.remove()
-    pokebola.remove()
-  }
+//  if (pokebola.isTouching(obstacle)) {
+//    obstacle.remove()
+//    pokebola.remove()
+//  }
 
-  if (pokebola.isTouching(obstacleFly)) {
-    obstacleFly.remove()
-    pokebola.remove()
-  }
+//  if (pokebola.isTouching(obstacleFly)) {
+//    obstacleFly.remove()
+//    pokebola.remove()
+//  }
 
   seta.display();
   pokebola.display()
