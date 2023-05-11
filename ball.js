@@ -4,7 +4,9 @@ class Ball {
         isStatic: true
       };
       this.r = 30;
+      this.rotate
       this.speed = 0.05;
+      this.angle = angle;
       this.body = Bodies.circle(x, y, this.r, options);
       this.image = loadImage("pokebola.png");
       this.animation = [this.image];
@@ -31,7 +33,7 @@ class Ball {
     }
   
     shoot() {
-      var newAngle = cannon.angle - 28;
+      var newAngle = seta.angle - 5;
       newAngle = newAngle *(3.14/180)
       var velocity = p5.Vector.fromAngle(newAngle);
       velocity.mult(0.5);
@@ -44,6 +46,16 @@ class Ball {
       var angle = this.body.angle;
       var pos = this.body.position;
       var index = floor(this.speed % this.animation.length);
+
+      if (keyIsDown(DOWN_ARROW) && this.angle<10  ) {
+        this.angle += 1;
+      }
+
+      console.log(this.angle)
+  
+      if (keyIsDown(UP_ARROW) && this.angle>-50 ) {
+        this.angle -= 1;
+      }
   
       push();
       translate(pos.x, pos.y);
@@ -51,6 +63,7 @@ class Ball {
       imageMode(CENTER);
       image(this.animation[index], 0, 0, this.r, this.r);
       pop();
+      angle += 0.1;
   
       if (this.body.velocity.x > 0 && pos.x > 10 && !this.isSink) {
         var position = [pos.x, pos.y];

@@ -8,11 +8,13 @@ class Seta {
       this.seta_image = loadImage("seta.png");
     }
     display() {
-      if (keyIsDown(UP_ARROW) && this.angle<70  ) {
+      if (keyIsDown(DOWN_ARROW) && this.angle<10  ) {
         this.angle += 1;
       }
+
+      console.log(this.angle)
   
-      if (keyIsDown(DOWN_ARROW) && this.angle>-30 ) {
+      if (keyIsDown(UP_ARROW) && this.angle>-50 ) {
         this.angle -= 1;
       }
 
@@ -21,6 +23,7 @@ class Seta {
       translate(this.x, this.y);
       rotate(this.angle);
       imageMode(CENTER);
+      image(this.seta_image, 0, 0, this.width, this.height);
       pop();
       noFill();
     }

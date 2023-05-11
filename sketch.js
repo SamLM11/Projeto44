@@ -9,6 +9,8 @@ let world;
 
 var ash, ashImg;
 var score = 0;
+var seta;
+var pokebola;
 var ashPokeball, ashPokeballImg;
 var bgSound;
 var obstacle, obstacleFly;
@@ -30,6 +32,8 @@ function preload() {
   pikachuImg = loadImage("pikachu.png");
 }
 
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textSize(32);
@@ -43,8 +47,13 @@ function setup() {
   angleMode(DEGREES);
   angle = 15;
 
+
+
   obstaclesGroup = new Group();
   obstaclesFlyGroup = new Group();
+
+  seta = new Seta(windowWidth - 1250, windowHeight - 150, 100, 100,angle);
+  pokebola = new Ball(windowWidth - 1250, windowHeight - 165, 100, 100,angle);
 
   ash = createSprite(windowWidth - 1300, windowHeight - 150);
   ash.addImage(ashImg);
@@ -57,7 +66,7 @@ function setup() {
 
 function draw() {
   background(back);
-  fill("#ff0000")
+  fill("#ff0000");
   text("pontuação: " + score, windowWidth - 1350, windowHeight / 8);
 
   Engine.update(engine);
@@ -69,8 +78,22 @@ function draw() {
   //    obstacle.velocityX = 0
   //}
 
+  if (pokebola.isTouching(obstacle)) {
+    obstacle.remove()
+    pokebola.remove()
+  }
+
+  if (pokebola.isTouching(obstacleFly)) {
+    obstacleFly.remove()
+    pokebola.remove()
+  }
+
+  seta.display();
+  pokebola.display()
+
   drawSprites()
 }
+
 
 function keyPressed() {
   if (keyCode === 32) {
@@ -81,6 +104,7 @@ function keyPressed() {
 
 function keyReleased() {
   if (keyCode === 32) {
+    pokebola.shoot();
     ash.visible = true;
     ashPokeball.visible = false;
   }
@@ -90,7 +114,7 @@ function keyReleased() {
 function spawnObstacles() {
   if (frameCount % 250 === 0) {
     obstacle = createSprite(windowWidth + 100, windowHeight - 170);
-    //obstacle.debug = true;
+    obstacle.debug = true;
     obstacle.velocityX = -3;
 
     //gere obstáculos aleatórios
@@ -100,6 +124,7 @@ function spawnObstacles() {
         obstacle.scale = 0.3
         break;
       case 2: obstacle.addImage(pikachuImg);
+        obstacle.setCollider("rectangle", -10,80,125,150)
         obstacle.scale = 0.9
         break;
       case 3: obstacle.addImage(diglettImg);
@@ -119,7 +144,7 @@ function spawnObstacles() {
 function spawnFlyObstacles() {
   if (frameCount % 180 === 0) {
     obstacleFly = createSprite(windowWidth + 100, windowHeight - 500);
-    //obstacleFly.debug = true;
+    obstacleFly.debug = true;
     obstacleFly.velocityX = -4;
 
     //gere obstáculos aleatórios
